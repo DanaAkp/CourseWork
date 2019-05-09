@@ -398,74 +398,92 @@ namespace CourseWork2
                         koeffPrivate[i, j] = koeffPrivate[j, i] = Get_AlgebralAddition(koeffPair, i, j) / Math.Sqrt(Get_AlgebralAddition(koeffPair, i, i) * Get_AlgebralAddition(koeffPair, j, j));
                     koeffPrivate[i, i] = koeffPair[i, i];
                 }
-                var X_Y = new List<KeyValuePair<double, double>>()
-            {
-                new KeyValuePair<double,double>( 150-1, 0 ),
-                new KeyValuePair<double,double>( 225-1, 150*(2-Math.Sqrt(3))/2-1 ),
-                new KeyValuePair<double, double>(300-150*(2-Math.Sqrt(3))/2-1, 75-1 ),
-               new KeyValuePair<double, double>( 300-1, 150-1 ),
-               new KeyValuePair<double, double>(300-150*(2-Math.Sqrt(3))/2-1, 225-1 ),
-                new KeyValuePair<double, double>(225-1, 300-150*(2-Math.Sqrt(3))/2-1 ),
-                new KeyValuePair<double, double>(150-1, 300-1 ),
-               new KeyValuePair<double, double>( 75-1, 300-150*(2-Math.Sqrt(3))/2 -1),
-                new KeyValuePair<double, double>( 150*(2-Math.Sqrt(3))/2-1, 225-1 ),
-                new KeyValuePair<double, double>(0, 150-1 ),
-                new KeyValuePair<double, double>( 150*(2-Math.Sqrt(3))/2-1, 75 -1),
-               new KeyValuePair<double, double>( 75-1, 150*(2-Math.Sqrt(3))/2-1 ) };
-                //foreach (KeyValuePair<double, double> x in X_Y)
+                #region Окружность
+                //    var X_Y = new List<KeyValuePair<double, double>>()
                 //{
-                //    Ellipse l = new Ellipse();
-                //    l.Width = l.Height = 5;
-                //    l.Fill = Brushes.Red;
-                //    Canvas.SetTop(l, x.Key);
-                //    Canvas.SetLeft(l, x.Value);
-                //    cnvMainPrivate.Children.Add(l);
-                //}
-                for (int i = 0; i < colum; i++)
+                //    new KeyValuePair<double,double>( 150-1, 0 ),
+                //    new KeyValuePair<double,double>( 225-1, 150*(2-Math.Sqrt(3))/2-1 ),
+                //    new KeyValuePair<double, double>(300-150*(2-Math.Sqrt(3))/2-1, 75-1 ),
+                //   new KeyValuePair<double, double>( 300-1, 150-1 ),
+                //   new KeyValuePair<double, double>(300-150*(2-Math.Sqrt(3))/2-1, 225-1 ),
+                //    new KeyValuePair<double, double>(225-1, 300-150*(2-Math.Sqrt(3))/2-1 ),
+                //    new KeyValuePair<double, double>(150-1, 300-1 ),
+                //   new KeyValuePair<double, double>( 75-1, 300-150*(2-Math.Sqrt(3))/2 -1),
+                //    new KeyValuePair<double, double>( 150*(2-Math.Sqrt(3))/2-1, 225-1 ),
+                //    new KeyValuePair<double, double>(0, 150-1 ),
+                //    new KeyValuePair<double, double>( 150*(2-Math.Sqrt(3))/2-1, 75 -1),
+                //   new KeyValuePair<double, double>( 75-1, 150*(2-Math.Sqrt(3))/2-1 ) };
+                //    //foreach (KeyValuePair<double, double> x in X_Y)
+                //    //{
+                //    //    Ellipse l = new Ellipse();
+                //    //    l.Width = l.Height = 5;
+                //    //    l.Fill = Brushes.Red;
+                //    //    Canvas.SetTop(l, x.Key);
+                //    //    Canvas.SetLeft(l, x.Value);
+                //    //    cnvMainPrivate.Children.Add(l);
+                //    //}
+                //    for (int i = 0; i < colum; i++)
+                //    {
+                //        for (int j = i + 1; j < colum; j++)
+                //        {
+                //            if (i != j && koeffPair[i, j] >= 0.3 && koeffPair[i, j] < 0.5)
+                //            {
+                //                Line l = new Line();
+                //                l.X1 = X_Y[i].Key;
+                //                l.X2 = X_Y[j].Key;
+                //                l.Y1 = X_Y[i].Value;
+                //                l.Y2 = X_Y[j].Value;
+                //                l.Stroke = Brushes.Yellow;
+                //                l.StrokeThickness = 1;
+                //                cnvMainPrivate.Children.Add(l);
+                //            }
+                //            if (i != j && koeffPair[i, j] >= 0.5 && koeffPair[i, j] < 0.7)
+                //            {
+                //                Line l = new Line();
+                //                l.X1 = X_Y[i].Key;
+                //                l.X2 = X_Y[j].Key;
+                //                l.Y1 = X_Y[i].Value;
+                //                l.Y2 = X_Y[j].Value;
+                //                l.Stroke = Brushes.Green;
+                //                l.StrokeThickness = 1;
+                //                cnvMainPrivate.Children.Add(l);
+                //            }
+                //            if (i != j && koeffPair[i, j] >= 0.7 && koeffPair[i, j] < 1)
+                //            {
+                //                Line l = new Line();
+                //                l.X1 = X_Y[i].Key;
+                //                l.X2 = X_Y[j].Key;
+                //                l.Y1 = X_Y[i].Value;
+                //                l.Y2 = X_Y[j].Value;
+                //                l.Stroke = Brushes.Red;
+                //                l.StrokeThickness = 1;
+                //                cnvMainPrivate.Children.Add(l);
+                //            }
+                //        }
+                //    }
+                #endregion
+
+                #region Палки
+
+                for(int i = 0; i < colum; i++)
                 {
-                    for (int j = i + 1; j < colum; j++)
+                    Canvas cnv = new Canvas();
+                    cnv.Height = colum * 30;
+                    cnv.Width = 160;
+
+                    for (int j = 0; j < colum; j++)
                     {
-                        if (i != j && koeffPair[i, j] >= 0.3 && koeffPair[i, j] < 0.5)
+                        if (j != i)
                         {
-                            Line l = new Line();
-                            l.X1 = X_Y[i].Key;
-                            l.X2 = X_Y[j].Key;
-                            l.Y1 = X_Y[i].Value;
-                            l.Y2 = X_Y[j].Value;
-                            l.Stroke = Brushes.Yellow;
-                            l.StrokeThickness = 1;
-                            cnvMainPrivate.Children.Add(l);
-                        }
-                        if (i != j && koeffPair[i, j] >= 0.5 && koeffPair[i, j] < 0.7)
-                        {
-                            Line l = new Line();
-                            l.X1 = X_Y[i].Key;
-                            l.X2 = X_Y[j].Key;
-                            l.Y1 = X_Y[i].Value;
-                            l.Y2 = X_Y[j].Value;
-                            l.Stroke = Brushes.Green;
-                            l.StrokeThickness = 1;
-                            cnvMainPrivate.Children.Add(l);
-                        }
-                        if (i != j && koeffPair[i, j] >= 0.7 && koeffPair[i, j] < 1)
-                        {
-                            Line l = new Line();
-                            l.X1 = X_Y[i].Key;
-                            l.X2 = X_Y[j].Key;
-                            l.Y1 = X_Y[i].Value;
-                            l.Y2 = X_Y[j].Value;
-                            l.Stroke = Brushes.Red;
-                            l.StrokeThickness = 1;
-                            cnvMainPrivate.Children.Add(l);
+                           
                         }
                     }
+                    lvCNV.Items.Add(cnv);
                 }
 
-                // DenseMatrix D_Matr = D_Matrix(koeffPrivate);
-                tbMatrix2.Text = Output_R(koeffPrivate);
-                //tbMatrix2.Text += "Коэффициенты детерминации\n";
-                //tbMatrix2.Text += Output_R(D_Matr);
+                #endregion
 
+                tbMatrix2.Text = Output_R(koeffPrivate);
                 for (int i = 0; i < colum; i++)
                 {
                     for (int j = i + 1; j < colum; j++)
@@ -611,6 +629,7 @@ namespace CourseWork2
                 {
                     tbRegress.Text += string.Format("{0}\t{1}\n", (i ).ToString(),A[i, 0] );
                 }
+
                 #region Значимость
                 DenseMatrix NewY = (DenseMatrix)X_T.Multiply(A);
                 DenseMatrix Qr = (DenseMatrix)NewY.TransposeThisAndMultiply(NewY);
@@ -619,18 +638,7 @@ namespace CourseWork2
                 {
                     Qos += Math.Pow(Y[i, 0] - NewY[i, 0], 2);
                 }
-
-                //double F = (Qr[0, 0] * (569-10 - 1)) / ((10+1) * Qos);
-                double F = (Qr[0, 0] * (10- 1 - 1)) / ((1+1) * Qos);
-                tbRegress.Text += "\n Значимость равна " + F.ToString() + "\nY\tY^\n ";
-
-                for (int i = 0; i < columArray[0].Length; i++)
-                {
-                    tbRegress.Text += string.Format("{0}\t{1}\n", Y[i, 0], NewY[i, 0]);
-                }
-
-
-                double t_tabl = 2.306;
+                double t_tabl = 1.96;//2.306;
                 double S_2 = Qr[0, 0] / (columArray[0].Length - colum - 1);
                 DenseMatrix S_b = inverseM;
 
@@ -640,7 +648,33 @@ namespace CourseWork2
                     if (S_b[i, i] > t_tabl) tbRegress.Text += "a" + i.ToString() + " значим\n";
                     else tbRegress.Text += "a" + i.ToString() + " не значим\n";
                 }
+                double F_tabl = 4.459;
+                //double F = (Qr[0, 0] * (569-10 - 1)) / ((10+1) * Qos);
+                double F = (Qr[0, 0] * (10- 1 - 1)) / ((1+1) * Qos);
+                tbRegress.Text += "\n Значимость равна " + F.ToString();
+                if(F>F_tabl) tbRegress.Text += "\n Уравнение регрессии значимо "  + "\nY\tY^\n ";
+                else tbRegress.Text += "\n Уравнение регрессии не значимо " + "\nY\tY^\n ";
+                for (int i = 0; i < columArray.Length; i++)
+                {
+                    tbRegress.Text += string.Format("{0}\t{1}\n", Y[i, 0], NewY[i, 0]);
+                }
 
+                double Prognoz = 0;
+                double S_ = Math.Sqrt(S_2);
+                DenseMatrix X0 = new DenseMatrix(1, 10);
+                for(int i = 0; i < colum; i++)
+                {
+                    Prognoz += columArray[i][0] * A[i, 0];
+                }
+
+                for(int i = 0; i < colum; i++)
+                {
+                    X0[0, i] = columArray[i][0];
+                }
+                DenseMatrix delta = (DenseMatrix)X0.Multiply(inverseM);
+                X0 = (DenseMatrix)X0.Transpose();
+              DenseMatrix m= (DenseMatrix) delta.Multiply(X0);
+                tbRegress.Text += "\n" + Prognoz + "+-" + t_tabl * S_2 * Math.Sqrt(Math.Abs(m[0, 0]) + 1);
                 #endregion
 
             }
@@ -652,8 +686,22 @@ namespace CourseWork2
         private void BtnDATA_Click(object sender, RoutedEventArgs e)
         {
             Data.GetCsv();
-            tbDATA.Text = Data.Output();
-            
+            //tbDATA.Text = Data.Output();
+
+            StackPanel stp = new StackPanel();
+            stp.Orientation = Orientation.Horizontal;
+            for (int i = 0; i < Data.Array.Length; i++)
+            {
+                double[] buf = Data.Array[i];
+                TextBlock lv = new TextBlock();
+                lv.Width = 100;
+                lv.Height = Data.Array[0].Length * 18;
+                lv.Text += Data.parametrs[i] + "\n";
+                for (int j = 0; j < buf.Length; j++)
+                    lv.Text += buf[j] + "\n";
+                stp.Children.Add(lv);
+            }
+            scv.Content = stp;
         }
     }
 }
