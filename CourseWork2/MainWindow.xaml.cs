@@ -26,6 +26,7 @@ namespace CourseWork2
     public partial class MainWindow : System.Windows.Window
     {
         double[][] columArray;
+        double[][] columArraySource;
         DenseMatrix koeffPair;
         DenseMatrix koeffPrivate;
         int colum = 10;
@@ -90,92 +91,13 @@ namespace CourseWork2
             }
             return P;
         }
-        private double[][] GetInterval(double[] arr)
-        {
-            double[] newArray = arr.OrderBy(x => x).ToArray();
-
-            #region 11
-            double[][] Res = new double[11][];
-            for (int i = 0; i < 2; i++)
-            {
-                double[] buf = new double[56];
-                for (int j = 0; j < buf.Length; j++)
-                {
-                    buf[j] = newArray[i * buf.Length + j];
-                }
-                Res[i] = buf;
-            }
-            for (int i = 2; i < 11; i++)
-            {
-                double[] buf = new double[50];
-                for (int j = 0; j < buf.Length; j++)
-                {
-                    buf[j] = newArray[i * buf.Length + j];
-                }
-                Res[i] = buf;
-            }
-            #endregion
-
-            #region 31
-            //double[][] Res = new double[31][];
-            //for (int i = 0; i < 20; i++)
-            //{
-            //    double[] buf = new double[17];
-            //    for (int j = 0; j < buf.Length; j++)
-            //    {
-            //        buf[j] = newArray[i * buf.Length + j];
-            //    }
-            //    Res[i] = buf;
-            //}
-            //for (int i = 20; i < 28; i++)
-            //{
-            //    double[] buf = new double[20];
-            //    for (int j = 0; j < buf.Length; j++)
-            //    {
-            //        buf[j] = newArray[340+(i-20)*buf.Length + j];
-            //    }
-            //    Res[i] = buf;
-            //}
-            //for (int i = 28; i < 31; i++)
-            //{
-            //    double[] buf = new double[23];
-            //    for (int j = 0; j < buf.Length; j++)
-            //    {
-            //        buf[j] = newArray[500+(i-28)*buf.Length + j];
-            //    }
-            //    Res[i] = buf;
-            //}
-            #endregion
-
-            #region 114
-            //double[][] Res = new double[114][];
-            //for (int i = 0; i < 113; i++)
-            //{
-            //    double[] buf = new double[5];
-            //    for (int j = 0; j < buf.Length; j++)
-            //    {
-            //        buf[j] = newArray[i * buf.Length + j];
-            //    }
-            //    Res[i] = buf;
-            //}
-            //double[] buf2 = new double[4];
-            //buf2[0] = newArray[newArray.Length - 4];
-            //buf2[1] = newArray[newArray.Length - 3];
-            //buf2[2] = newArray[newArray.Length - 2];
-            //buf2[3] = newArray[newArray.Length - 1];
-            //Res[Res.Length - 1] = buf2;
-            #endregion
-
-            return Res;
-        }
         private void Btn_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 double k = 43.2;
                 int interval = 31;
-
-                double[][] columArray = new double[colum][];
+                
                 double[][] points = new double[colum][];
                 double[][] xn = new double[colum][];
                 double[][] m_e = new double[colum][];
@@ -184,7 +106,7 @@ namespace CourseWork2
 
                 for (int i = 0; i < colum; i++)
                 {
-                    columArray[i] = DiscriptiveStatistics.GetSample(File.ReadAllText(@"C:\Users\Данагуль\source\repos\CourseWork2\Нормированные значения\" + (i + 2).ToString() + ".txt"));
+                   // columArray[i] = DiscriptiveStatistics.GetSample(File.ReadAllText(@"C:\Users\Данагуль\source\repos\CourseWork2\Нормированные значения\" + (i + 2).ToString() + ".txt"));
 
                     points[i] = point(columArray[i], interval);
                     double[] me_buf = m_e[i] = Get_m_e(columArray[i], points[i], interval);
@@ -686,8 +608,12 @@ namespace CourseWork2
         private void BtnDATA_Click(object sender, RoutedEventArgs e)
         {
             Data.GetCsv();
-            //tbDATA.Text = Data.Output();
-
+            columArraySource = Data.Array;
+            columArray = new double[Data.parametrs.Count][];
+            for(int i = 0; i < Data.parametrs.Count; i++)
+            {
+                columArray[i] = DiscriptiveStatistics.Rationing_MaxMin(columArraySource[i]);
+            }
             StackPanel stp = new StackPanel();
             stp.Orientation = Orientation.Horizontal;
             for (int i = 0; i < Data.Array.Length; i++)
@@ -709,7 +635,13 @@ namespace CourseWork2
             string s = "";
             for(int i = 0; i < colum; i++)
             {
-                s +=string.Format("{0:F2}", DiscriptiveStatistics.Average(columArray[i])) + "\t";
+                s += (i + 1).ToString() + "\t";
+            }
+            #region 
+            s += "\n\n";
+            for (int i = 0; i < colum; i++)
+            {
+                s += string.Format("{0:F2}", DiscriptiveStatistics.Average(columArray[i])) + "\t";
             }
             s += "\n\n";
             for (int i = 0; i < colum; i++)
@@ -749,7 +681,7 @@ namespace CourseWork2
             s += "\n\n";
             for (int i = 0; i < colum; i++)
             {
-                s += string.Format("{0:F2}", DiscriptiveStatistics.Asymmetry(columArray[i]) )+ "\t";
+                s += string.Format("{0:F2}", DiscriptiveStatistics.Asymmetry(columArray[i])) + "\t";
             }
             s += "\n\n";
             for (int i = 0; i < colum; i++)
@@ -771,8 +703,13 @@ namespace CourseWork2
             {
                 s += string.Format("{0:F2}", columArray[i].Length) + "\t";
             }
-            tbDiscrptStat.Text = s;
-            tblDiscrStat.Text = "Среднее\n\nСумма\n\nСтандартная ошибка\n\nМедиана\n\nМода\n\nСтандартное отклонение\n\nДисперсия\n\nЭксцесс\n\nАсимметричность\n\nИнтервал\n\nМинимум\n\nМаксимум\n\nСчет";
+            #endregion
+
+            TextBox tb = new TextBox { Text = s, BorderBrush = Brushes.White, HorizontalScrollBarVisibility = ScrollBarVisibility.Auto };
+            Grid.SetRow(tb, 1);
+            Grid.SetColumn(tb, 1);
+            gdDiscrStat.Children.Add(tb);
+            tblDiscrStat.Text = "\n\nСреднее\n\nСумма\n\nСтандартная ошибка\n\nМедиана\n\nМода\n\nСтандартное отклонение\n\nДисперсия\n\nЭксцесс\n\nАсимметричность\n\nИнтервал\n\nМинимум\n\nМаксимум\n\nСчет";
         }
     }
 }

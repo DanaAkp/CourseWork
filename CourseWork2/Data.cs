@@ -15,25 +15,33 @@ namespace CourseWork2
 
         public static void GetCsv()
         {
-            string[] vs = File.ReadAllLines(@"D:\Универ\ТВМС\таблицы\breast-cancer-wisconsin-data\data.csv");
+            var srcEncoding = Encoding.GetEncoding(1251);
+            var dstEncoding = Encoding.UTF8;
+            string s = "";
+            using (var src = new StreamReader(@"Data\data.csv", encoding: srcEncoding))
+            {
+                string line;
+                while ((line = src.ReadLine()) != null)
+                    s += line + "!";
+            }
 
-            string[] str = vs[0].Split(',');
+
+            // string[] vs = File.ReadAllLines(@"Data\data.csv");
+            string[] vs = s.Split('!');
+            string[] str = vs[0].Split(';');
             countData = str.Length;
 
             foreach (string x in str) if (x !="") parametrs.Add(x);
 
             Array = new double[parametrs.Count][];
-            
             for(int i = 0; i < parametrs.Count; i++)
             {
-                double[] buf = new double[vs.Length - 1];
-                for(int j = 1; j < vs.Length; j++)
+                double[] buf = new double[vs.Length - 2];
+                for(int j = 1; j < vs.Length-1; j++)
                 {
-                    str = vs[j].Split(',');
-                    if (str[i] == "M") buf[j-1] = 1;
-                    else if (str[i] == "B") buf[j-1] = 0;
-                    else
-                        buf[j-1] = double.Parse(str[i].Replace('.', ','));
+                    str = vs[j].Split(';');
+                     buf[j - 1] = double.Parse(str[i].Replace('.', ','));
+
                 }
                 Array[i] = buf;
             }
