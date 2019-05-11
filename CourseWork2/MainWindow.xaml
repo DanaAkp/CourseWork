@@ -22,6 +22,7 @@
             </Grid>
         </TabItem>
         <TabItem Header="Описательная статистика">
+
             <Grid x:Name="gdDiscrStat">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="74"/>
@@ -37,8 +38,10 @@
                         <RadioButton Margin="0,5" x:Name="rbNotNorm" Content="Исходные значения"/>
                     </StackPanel>
                     <Button x:Name="btnDiscrStat" Click="BtnDiscrStat_Click" Grid.Column="1" Content="Вычислить" Margin="170,20"/>
-                </StackPanel>  
-              
+                </StackPanel>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="1">
+                    <StackPanel x:Name="stpDiscrStat" Orientation="Horizontal"/>
+                </ScrollViewer>
                 <TextBlock x:Name="tblDiscrStat" Grid.Row="1" Width="150"/>
             </Grid>
         </TabItem>
@@ -82,8 +85,8 @@
             </Grid>
         </TabItem>
         <TabItem Header="Распределение">
-            <Grid x:Name="gdMain">
-                <Grid.RowDefinitions>
+            <Grid x:Name="gdDistribution">
+                <!--<Grid.RowDefinitions>
                     <RowDefinition Height="113*"/>
                     <RowDefinition Height="73*"/>
                     <RowDefinition Height="64*"/>
@@ -126,7 +129,22 @@
                 <TextBox x:Name="tb9x" Grid.Column="9" Grid.Row="2"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.ColumnSpan="6" Grid.Column="3" Margin="55,44,56,44" Width="432">
                     <TextBlock Text="Нормальным распределение считается при значении не превосходящeм 43.2"/>
-                </StackPanel>
+                </StackPanel>-->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="69*"/>
+                    <RowDefinition Height="350*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="299*"/>
+                    <ColumnDefinition Width="194*"/>
+                </Grid.ColumnDefinitions>
+                <Button Margin="150,30" x:Name="btn" Grid.Row="0" Grid.Column="2" Click="Btn_Click" Content="Вычислить" />
+                <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Нормальным распределение считается при значении не превосходящeм 43.2"/>
+                <TextBox BorderBrush="White" HorizontalContentAlignment="Right" x:Name="tblDistribution" Grid.Row="1"/>
+                <ScrollViewer Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="1" x:Name="scvDistribution">
+                    <StackPanel x:Name="stpDistribution" Orientation="Horizontal"/>
+                </ScrollViewer>
             </Grid>
         </TabItem>
         <TabItem Header="Корреляционный анализ">
