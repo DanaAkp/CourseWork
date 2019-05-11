@@ -159,7 +159,7 @@ namespace CourseWork2
             s += "\nМедиана: " + Median(arr);
             s += "\nМода: " + Fashion(arr);
             s += "\nСтандартное отклонение: " + StandartDeviation(arr);
-            s += "\nДисперсия выборки: " + Dispersion(arr);
+            s += "\nДисперсия: " + Dispersion(arr);
             s += "\nЭксцесс: " + Excess(arr);
             s += "\nАсимметричность: " + Asymmetry(arr);
             s += "\nИнтервал: " + Interval(arr);

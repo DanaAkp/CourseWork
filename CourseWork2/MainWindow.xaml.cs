@@ -703,5 +703,76 @@ namespace CourseWork2
             }
             scv.Content = stp;
         }
+
+        private void BtnDiscrStat_Click(object sender, RoutedEventArgs e)
+        {
+            string s = "";
+            for(int i = 0; i < colum; i++)
+            {
+                s +=string.Format("{0:F2}", DiscriptiveStatistics.Average(columArray[i])) + "\t";
+            }
+            s += "\n\n";
+            for (int i = 0; i < colum; i++)
+            {
+                s += string.Format("{0:F2}", DiscriptiveStatistics.Amount(columArray[i])) + "\t";
+            }
+            s += "\n\n";
+            for (int i = 0; i < colum; i++)
+            {
+                s += string.Format("{0:F2}", DiscriptiveStatistics.StandartError(columArray[i])) + "\t";
+            }
+            s += "\n\n";
+            for (int i = 0; i < colum; i++)
+            {
+                s += string.Format("{0:F2}", DiscriptiveStatistics.Median(columArray[i])) + "\t";
+            }
+            s += "\n\n";
+            for (int i = 0; i < colum; i++)
+            {
+                s += string.Format("{0:F2}", DiscriptiveStatistics.Fashion(columArray[i])) + "\t";
+            }
+            s += "\n\n";
+            for (int i = 0; i < colum; i++)
+            {
+                s += string.Format("{0:F2}", DiscriptiveStatistics.StandartDeviation(columArray[i])) + "\t";
+            }
+            s += "\n\n";
+            for (int i = 0; i < colum; i++)
+            {
+                s += string.Format("{0:F2}", DiscriptiveStatistics.Dispersion(columArray[i])) + "\t";
+            }
+            s += "\n\n";
+            for (int i = 0; i < colum; i++)
+            {
+                s += string.Format("{0:F2}", DiscriptiveStatistics.Excess(columArray[i])) + "\t";
+            }
+            s += "\n\n";
+            for (int i = 0; i < colum; i++)
+            {
+                s += string.Format("{0:F2}", DiscriptiveStatistics.Asymmetry(columArray[i]) )+ "\t";
+            }
+            s += "\n\n";
+            for (int i = 0; i < colum; i++)
+            {
+                s += string.Format("{0:F2}", DiscriptiveStatistics.Interval(columArray[i])) + "\t";
+            }
+            s += "\n\n";
+            for (int i = 0; i < colum; i++)
+            {
+                s += string.Format("{0:F2}", DiscriptiveStatistics.Min(columArray[i])) + "\t";
+            }
+            s += "\n\n";
+            for (int i = 0; i < colum; i++)
+            {
+                s += string.Format("{0:F2}", DiscriptiveStatistics.Max(columArray[i])) + "\t";
+            }
+            s += "\n\n";
+            for (int i = 0; i < colum; i++)
+            {
+                s += string.Format("{0:F2}", columArray[i].Length) + "\t";
+            }
+            tbDiscrptStat.Text = s;
+            tblDiscrStat.Text = "Среднее\n\nСумма\n\nСтандартная ошибка\n\nМедиана\n\nМода\n\nСтандартное отклонение\n\nДисперсия\n\nЭксцесс\n\nАсимметричность\n\nИнтервал\n\nМинимум\n\nМаксимум\n\nСчет";
+        }
     }
 }

@@ -23,6 +23,23 @@
                 <ScrollViewer HorizontalScrollBarVisibility="Auto" x:Name="scv"  Grid.ColumnSpan="2" Grid.Row="1"/>
             </Grid>
         </TabItem>
+        <TabItem Header="Описательная статистика">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="69*"/>
+                    <RowDefinition Height="350*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="299*"/>
+                    <ColumnDefinition Width="194*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="1">
+                    <TextBlock x:Name="tblDiscrStat" Width="150"/>
+                    <TextBox x:Name="tbDiscrptStat" HorizontalScrollBarVisibility="Auto" Width="980"/>
+                </StackPanel>
+                <Button x:Name="btnDiscrStat" Click="BtnDiscrStat_Click" Grid.Column="1" Content="btn" Margin="170,30"/>
+              </Grid>
+        </TabItem>
         <TabItem Header="Нормирование">
             <Grid>
                 <Grid.RowDefinitions>
