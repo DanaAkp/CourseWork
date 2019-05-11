@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,19 +16,30 @@ namespace CourseWork2
 
         public static void GetCsv()
         {
-            var srcEncoding = Encoding.GetEncoding(1251);
-            var dstEncoding = Encoding.UTF8;
             string s = "";
-            using (var src = new StreamReader(@"Data\data.csv", encoding: srcEncoding))
+            OpenFileDialog FileOT = new OpenFileDialog();
+            FileOT.Filter = "All files (*.*)|*.*|TXT text (*.txt)|*.txt";
+            if (FileOT.ShowDialog() == true)
             {
-                string line;
-                while ((line = src.ReadLine()) != null)
-                    s += line + "!";
+                Stream ms = new FileStream(FileOT.FileName, FileMode.Open);
+                byte[] array = new byte[ms.Length];
+                ms.Read(array, 0, array.Length);
+                string buf = Encoding.Default.GetString(array);
+                s = buf.ToLower();
             }
+
+            //var srcEncoding = Encoding.GetEncoding(1251);
+            //var dstEncoding = Encoding.UTF8;
+            //using (var src = new StreamReader(@"Data\data.csv", encoding: srcEncoding))
+            //{
+            //    string line;
+            //    while ((line = src.ReadLine()) != null)
+            //        s += line + "!";
+            //}
 
 
             // string[] vs = File.ReadAllLines(@"Data\data.csv");
-            string[] vs = s.Split('!');
+            string[] vs = s.Split(new string[] { "\r\n" },StringSplitOptions.RemoveEmptyEntries);
             string[] str = vs[0].Split(';');
             countData = str.Length;
 

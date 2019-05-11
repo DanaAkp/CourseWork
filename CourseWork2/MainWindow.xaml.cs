@@ -106,8 +106,6 @@ namespace CourseWork2
 
                 for (int i = 0; i < colum; i++)
                 {
-                   // columArray[i] = DiscriptiveStatistics.GetSample(File.ReadAllText(@"C:\Users\Данагуль\source\repos\CourseWork2\Нормированные значения\" + (i + 2).ToString() + ".txt"));
-
                     points[i] = point(columArray[i], interval);
                     double[] me_buf = m_e[i] = Get_m_e(columArray[i], points[i], interval);
                     xn[i] = Get_xn(columArray[i], points[i], interval);
@@ -610,6 +608,7 @@ namespace CourseWork2
             Data.GetCsv();
             columArraySource = Data.Array;
             columArray = new double[Data.parametrs.Count][];
+            colum = Data.parametrs.Count;
             for(int i = 0; i < Data.parametrs.Count; i++)
             {
                 columArray[i] = DiscriptiveStatistics.Rationing_MaxMin(columArraySource[i]);
@@ -632,6 +631,27 @@ namespace CourseWork2
 
         private void BtnDiscrStat_Click(object sender, RoutedEventArgs e)
         {
+            if (rbNorm.IsChecked == true)
+            {
+                s = output(columArray); TextBox tb = new TextBox { Text = s, BorderBrush = Brushes.White, HorizontalScrollBarVisibility = ScrollBarVisibility.Auto };
+                Grid.SetRow(tb, 1);
+                Grid.SetColumn(tb, 1);
+                gdDiscrStat.Children.Add(tb);
+                tblDiscrStat.Text = "\n\nСреднее\n\nСумма\n\nСтандартная ошибка\n\nМедиана\n\nМода\n\nСтандартное отклонение\n\nДисперсия\n\nЭксцесс\n\nАсимметричность\n\nИнтервал\n\nМинимум\n\nМаксимум\n\nСчет";
+            }
+            if (rbNotNorm.IsChecked == true)
+            {
+                s = output(columArraySource);
+                TextBox tb = new TextBox { Text = s, BorderBrush = Brushes.White, HorizontalScrollBarVisibility = ScrollBarVisibility.Auto };
+                Grid.SetRow(tb, 1);
+                Grid.SetColumn(tb, 1);
+                gdDiscrStat.Children.Add(tb);
+                tblDiscrStat.Text = "\n\nСреднее\n\nСумма\n\nСтандартная ошибка\n\nМедиана\n\nМода\n\nСтандартное отклонение\n\nДисперсия\n\nЭксцесс\n\nАсимметричность\n\nИнтервал\n\nМинимум\n\nМаксимум\n\nСчет";
+            }
+        }
+
+        private string output(double[][] arr)
+        {
             string s = "";
             for(int i = 0; i < colum; i++)
             {
@@ -641,75 +661,70 @@ namespace CourseWork2
             s += "\n\n";
             for (int i = 0; i < colum; i++)
             {
-                s += string.Format("{0:F2}", DiscriptiveStatistics.Average(columArray[i])) + "\t";
+                s += string.Format("{0:F2}", DiscriptiveStatistics.Average(arr[i])) + "\t";
             }
             s += "\n\n";
             for (int i = 0; i < colum; i++)
             {
-                s += string.Format("{0:F2}", DiscriptiveStatistics.Amount(columArray[i])) + "\t";
+                s += string.Format("{0:F2}", DiscriptiveStatistics.Amount(arr[i])) + "\t";
             }
             s += "\n\n";
             for (int i = 0; i < colum; i++)
             {
-                s += string.Format("{0:F2}", DiscriptiveStatistics.StandartError(columArray[i])) + "\t";
+                s += string.Format("{0:F2}", DiscriptiveStatistics.StandartError(arr[i])) + "\t";
             }
             s += "\n\n";
             for (int i = 0; i < colum; i++)
             {
-                s += string.Format("{0:F2}", DiscriptiveStatistics.Median(columArray[i])) + "\t";
+                s += string.Format("{0:F2}", DiscriptiveStatistics.Median(arr[i])) + "\t";
             }
             s += "\n\n";
             for (int i = 0; i < colum; i++)
             {
-                s += string.Format("{0:F2}", DiscriptiveStatistics.Fashion(columArray[i])) + "\t";
+                s += string.Format("{0:F2}", DiscriptiveStatistics.Fashion(arr[i])) + "\t";
             }
             s += "\n\n";
             for (int i = 0; i < colum; i++)
             {
-                s += string.Format("{0:F2}", DiscriptiveStatistics.StandartDeviation(columArray[i])) + "\t";
+                s += string.Format("{0:F2}", DiscriptiveStatistics.StandartDeviation(arr[i])) + "\t";
             }
             s += "\n\n";
             for (int i = 0; i < colum; i++)
             {
-                s += string.Format("{0:F2}", DiscriptiveStatistics.Dispersion(columArray[i])) + "\t";
+                s += string.Format("{0:F2}", DiscriptiveStatistics.Dispersion(arr[i])) + "\t";
             }
             s += "\n\n";
             for (int i = 0; i < colum; i++)
             {
-                s += string.Format("{0:F2}", DiscriptiveStatistics.Excess(columArray[i])) + "\t";
+                s += string.Format("{0:F2}", DiscriptiveStatistics.Excess(arr[i])) + "\t";
             }
             s += "\n\n";
             for (int i = 0; i < colum; i++)
             {
-                s += string.Format("{0:F2}", DiscriptiveStatistics.Asymmetry(columArray[i])) + "\t";
+                s += string.Format("{0:F2}", DiscriptiveStatistics.Asymmetry(arr[i])) + "\t";
             }
             s += "\n\n";
             for (int i = 0; i < colum; i++)
             {
-                s += string.Format("{0:F2}", DiscriptiveStatistics.Interval(columArray[i])) + "\t";
+                s += string.Format("{0:F2}", DiscriptiveStatistics.Interval(arr[i])) + "\t";
             }
             s += "\n\n";
             for (int i = 0; i < colum; i++)
             {
-                s += string.Format("{0:F2}", DiscriptiveStatistics.Min(columArray[i])) + "\t";
+                s += string.Format("{0:F2}", DiscriptiveStatistics.Min(arr[i])) + "\t";
             }
             s += "\n\n";
             for (int i = 0; i < colum; i++)
             {
-                s += string.Format("{0:F2}", DiscriptiveStatistics.Max(columArray[i])) + "\t";
+                s += string.Format("{0:F2}", DiscriptiveStatistics.Max(arr[i])) + "\t";
             }
             s += "\n\n";
             for (int i = 0; i < colum; i++)
             {
-                s += string.Format("{0:F2}", columArray[i].Length) + "\t";
+                s += string.Format("{0:F2}", arr[i].Length) + "\t";
             }
             #endregion
-
-            TextBox tb = new TextBox { Text = s, BorderBrush = Brushes.White, HorizontalScrollBarVisibility = ScrollBarVisibility.Auto };
-            Grid.SetRow(tb, 1);
-            Grid.SetColumn(tb, 1);
-            gdDiscrStat.Children.Add(tb);
-            tblDiscrStat.Text = "\n\nСреднее\n\nСумма\n\nСтандартная ошибка\n\nМедиана\n\nМода\n\nСтандартное отклонение\n\nДисперсия\n\nЭксцесс\n\nАсимметричность\n\nИнтервал\n\nМинимум\n\nМаксимум\n\nСчет";
+            return s;
         }
     }
 }

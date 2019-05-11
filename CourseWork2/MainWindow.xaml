@@ -33,8 +33,8 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal">
                     <StackPanel>
-                        <RadioButton Margin="0,10" x:Name="rbNorm" Content="Исходные значения"/>
-                        <RadioButton Margin="0,10" x:Name="rbNotNorm" Content="Нормированные значения"/>
+                        <RadioButton Margin="0,10" x:Name="rbNorm" Content="Нормированные значения"/>
+                        <RadioButton Margin="0,5" x:Name="rbNotNorm" Content="Исходные значения"/>
                     </StackPanel>
                     <Button x:Name="btnDiscrStat" Click="BtnDiscrStat_Click" Grid.Column="1" Content="Вычислить" Margin="170,20"/>
                 </StackPanel>  
