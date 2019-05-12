@@ -96,7 +96,7 @@ namespace CourseWork2
             try
             {
                 double k = 43.2;
-                int interval = 10;
+                int interval = 31;
                 
                 double[][] points = new double[colum][];
                 double[][] xn = new double[colum][];
@@ -510,11 +510,15 @@ namespace CourseWork2
                 DenseMatrix mul = (DenseMatrix)inverseM.Multiply(X_1);
                 DenseMatrix A = (DenseMatrix)mul.Multiply(Y);
                 tbRegress.Text = "";
+                string strok = "y =";
                 for (int i = 0; i < A.RowCount; i++)
                 {
                     tbRegress.Text += string.Format("{0}\t{1}\n", (i ).ToString(),A[i, 0] );
+                    strok += string.Format(" {0:F2}*a{1} +", A[i, 0],i);
                 }
-
+                for (int i = 0; i < strok.Length - 1; i++)
+                    tbRegress.Text += strok[i];
+                tbRegress.Text += "\n";
                 #region Значимость
                 DenseMatrix NewY = (DenseMatrix)X_T.Multiply(A);
                 DenseMatrix Qr = (DenseMatrix)NewY.TransposeThisAndMultiply(NewY);
@@ -523,7 +527,7 @@ namespace CourseWork2
                 {
                     Qos += Math.Pow(Y[i, 0] - NewY[i, 0], 2);
                 }
-                double t_tabl = 2;// 1.96;
+                double t_tabl = 1.96;
                 double S_2 = Qr[0, 0] / (columArray[0].Length - colum - 1);
                 DenseMatrix S_b = inverseM;
 
@@ -533,6 +537,9 @@ namespace CourseWork2
                     if (S_b[i, i] > t_tabl) tbRegress.Text += "a" + i.ToString() + " значим\n";
                     else tbRegress.Text += "a" + i.ToString() + " не значим\n";
                 }
+
+
+
                 double F_tabl = 4.459;
                 double F = (Qr[0, 0] * (colum- 1 - 1)) / ((1+1) * Qos);
                 tbRegress.Text += "\n Значимость равна " + F.ToString();
