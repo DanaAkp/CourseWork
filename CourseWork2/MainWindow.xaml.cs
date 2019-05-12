@@ -96,7 +96,7 @@ namespace CourseWork2
             try
             {
                 double k = 43.2;
-                int interval = 31;
+                int interval = 10;
                 
                 double[][] points = new double[colum][];
                 double[][] xn = new double[colum][];
