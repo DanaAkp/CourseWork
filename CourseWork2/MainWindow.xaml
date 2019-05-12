@@ -45,7 +45,7 @@
                 <TextBlock x:Name="tblDiscrStat" Grid.Row="1" Width="150"/>
             </Grid>
         </TabItem>
-        <TabItem Header="Нормирование">
+        <!--<TabItem Header="Нормирование">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
@@ -83,7 +83,7 @@
                     <TextBox x:Name="tbDiscrStat_source" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto" />
                 </GroupBox>
             </Grid>
-        </TabItem>
+        </TabItem>-->
         <TabItem Header="Распределение">
             <Grid x:Name="gdDistribution">
                 <!--<Grid.RowDefinitions>
@@ -131,19 +131,39 @@
                     <TextBlock Text="Нормальным распределение считается при значении не превосходящeм 43.2"/>
                 </StackPanel>-->
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="69*"/>
+                    <RowDefinition Height="74*"/>
+                    <RowDefinition Height="40*"/>
                     <RowDefinition Height="350*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="180"/>
                     <ColumnDefinition Width="299*"/>
                     <ColumnDefinition Width="194*"/>
                 </Grid.ColumnDefinitions>
                 <Button Margin="150,30" x:Name="btn" Grid.Row="0" Grid.Column="2" Click="Btn_Click" Content="Вычислить" />
                 <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Нормальным распределение считается при значении не превосходящeм 43.2"/>
-                <TextBox BorderBrush="White" HorizontalContentAlignment="Right" x:Name="tblDistribution" Grid.Row="1"/>
-                <ScrollViewer Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="1" x:Name="scvDistribution">
-                    <StackPanel x:Name="stpDistribution" Orientation="Horizontal"/>
+               
+ <ScrollViewer Grid.ColumnSpan="3" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" Grid.Row="1" Grid.RowSpan="2" x:Name="scvDistribution">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel>
+                            <TextBlock Text="     "/>
+                        </StackPanel>
+                        <StackPanel x:Name="stpDistrParams">
+                            <TextBlock  Text="Параметры"/>
+                        </StackPanel>
+                        <StackPanel>
+                            <TextBlock Text="     "/>
+                        </StackPanel>
+                        <StackPanel x:Name="stpDistr">
+                            <TextBlock HorizontalAlignment="Center"  Text="Нормальность распрделения"/>
+                        </StackPanel>
+                        <StackPanel>
+                            <TextBlock Text="     "/>
+                        </StackPanel>
+                        <StackPanel x:Name="stpDistrX_2">
+                            <TextBlock HorizontalAlignment="Center"  Text="Коэффициент"/>
+                        </StackPanel>
+                    </StackPanel>
                 </ScrollViewer>
             </Grid>
         </TabItem>

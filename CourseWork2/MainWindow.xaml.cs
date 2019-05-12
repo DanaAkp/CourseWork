@@ -38,42 +38,42 @@ namespace CourseWork2
             InitializeComponent();
         }
         #region Нормирование
-        private void BtnOpenFile_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog FileOT = new OpenFileDialog();
-            FileOT.Filter = "All files (*.*)|*.*|TXT text (*.txt)|*.txt";
-            if (FileOT.ShowDialog() == true)
-            {
-                Stream ms = new FileStream(FileOT.FileName, FileMode.Open);
-                lblNameFile.Content = FileOT.FileName;
-                byte[] array = new byte[ms.Length];
-                ms.Read(array, 0, array.Length);
-                string buf = Encoding.Default.GetString(array);
-                s = buf.ToLower();
-            }
-            sampleSource = DiscriptiveStatistics.GetSample(s);
-            tbDiscrStat_source.Text = DiscriptiveStatistics.Output_descriptive_statistics(sampleSource);
-            tblSourceSample.Text = DiscriptiveStatistics.Output(sampleSource);
-        }
-        private void BtnRationing_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                sampleRationing = DiscriptiveStatistics.Rationing_MaxMin(sampleSource);
-                tblRationning.Text = DiscriptiveStatistics.Output(sampleRationing);
-                tbDiscrStat_Ration.Text = DiscriptiveStatistics.Output_descriptive_statistics(sampleRationing);
-            }
-            catch (Exception ex) { MessageBox.Show(ex.Message, "Ошибка"); }
-        }
-        private void BtnSaveFile_Click(object sender, RoutedEventArgs e)
-        {
-            SaveFileDialog sd = new SaveFileDialog();
-            sd.Filter = "All files (*.*)|*.*|TXT text (*.txt)|*.txt";
-            if (sd.ShowDialog() == true)
-            {
-                File.WriteAllText(sd.FileName, DiscriptiveStatistics.Save(sampleRationing));
-            }
-        }
+        //private void BtnOpenFile_Click(object sender, RoutedEventArgs e)
+        //{
+        //    OpenFileDialog FileOT = new OpenFileDialog();
+        //    FileOT.Filter = "All files (*.*)|*.*|TXT text (*.txt)|*.txt";
+        //    if (FileOT.ShowDialog() == true)
+        //    {
+        //        Stream ms = new FileStream(FileOT.FileName, FileMode.Open);
+        //        lblNameFile.Content = FileOT.FileName;
+        //        byte[] array = new byte[ms.Length];
+        //        ms.Read(array, 0, array.Length);
+        //        string buf = Encoding.Default.GetString(array);
+        //        s = buf.ToLower();
+        //    }
+        //    sampleSource = DiscriptiveStatistics.GetSample(s);
+        //    tbDiscrStat_source.Text = DiscriptiveStatistics.Output_descriptive_statistics(sampleSource);
+        //    tblSourceSample.Text = DiscriptiveStatistics.Output(sampleSource);
+        //}
+        //private void BtnRationing_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        sampleRationing = DiscriptiveStatistics.Rationing_MaxMin(sampleSource);
+        //        tblRationning.Text = DiscriptiveStatistics.Output(sampleRationing);
+        //        tbDiscrStat_Ration.Text = DiscriptiveStatistics.Output_descriptive_statistics(sampleRationing);
+        //    }
+        //    catch (Exception ex) { MessageBox.Show(ex.Message, "Ошибка"); }
+        //}
+        //private void BtnSaveFile_Click(object sender, RoutedEventArgs e)
+        //{
+        //    SaveFileDialog sd = new SaveFileDialog();
+        //    sd.Filter = "All files (*.*)|*.*|TXT text (*.txt)|*.txt";
+        //    if (sd.ShowDialog() == true)
+        //    {
+        //        File.WriteAllText(sd.FileName, DiscriptiveStatistics.Save(sampleRationing));
+        //    }
+        //}
 
         #endregion
 
@@ -116,17 +116,17 @@ namespace CourseWork2
                         x2_arr[i] += Math.Pow(me_buf[j] - mt_buf[j], 2) / mt_buf[j];
                     }
                 }
-                string s = tblDistribution.Text = "";
-                for(int i = 0; i < colum; i++)
+                string s = "\n", t = "\n", w = "\n";
+                for (int i = 0; i < colum; i++)
                 {
-                    if (x2_arr[i] > k) s += string.Format("имеет не нормальное распределение с коэффициентом, равным {0:F2}\n\n", x2_arr[i]);
-                    else s += string.Format("имеет нормальное распределение с коэффициентом, равным {0:F2}\n\n", x2_arr[i]);
+                    if (x2_arr[i] > k) { s += "Не нормальное\n\n"; t += string.Format("{0:F2}", x2_arr[i])+ "\n\n"; }
+                    else { s += "Нормальное\n\n"; t += string.Format("{0:F2}", x2_arr[i]) + "\n\n"; }
+                    w += Data.parametrs[i] + "\n\n";
                 }
-                TextBox tb = new TextBox() { Text = s, HorizontalScrollBarVisibility = ScrollBarVisibility.Auto, BorderBrush = Brushes.White};
-                Grid.SetColumn(tb, 1);
-                Grid.SetRow(tb, 1);
-                gdDistribution.Children.Add(tb);
-                for(int i = 0; i < colum; i++)  tblDistribution.Text += Data.parametrs[i] + "\n\n";
+                
+                stpDistr.Children.Add(new TextBlock { Text = s, HorizontalAlignment=HorizontalAlignment.Center});
+                stpDistrX_2.Children.Add(new TextBlock { Text = t , HorizontalAlignment = HorizontalAlignment.Center });
+                stpDistrParams.Children.Add(new TextBlock { Text = w });
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Ошибка"); }
         }
@@ -558,14 +558,24 @@ namespace CourseWork2
 
                 for(int i = 0; i < colum; i++)
                 {
-                    X0[0, i] = columArray[i][0];
+                    X0[0, i] = columArraySource[i][0];
                 }
                 DenseMatrix delta = (DenseMatrix)X0.Multiply(inverseM);
                 X0 = (DenseMatrix)X0.Transpose();
-              DenseMatrix m= (DenseMatrix) delta.Multiply(X0);
-                tbRegress.Text += "\n" + Prognoz + "+-" + t_tabl * S_2 * Math.Sqrt(Math.Abs(m[0, 0]) + 1);
+              DenseMatrix m = (DenseMatrix) delta.Multiply(X0);
+                //tbRegress.Text += "\n" + Prognoz + "+-" + t_tabl * S_2 * Math.Sqrt(Math.Abs(m[0, 0]) + 1);
                 #endregion
 
+                #region Прогноз
+                for (int j = 1; j < A.RowCount; j++)
+                    A[0,0] += X0[j - 1,0] * A[j, 0];
+                for (int j = 1; j < delta.ColumnCount; j++)
+                    delta[0,0] += X0[ j - 1,0] * delta[0, j];
+                double del = t_tabl * S_ * Math.Sqrt(Math.Abs(delta[0,0]) - 1);
+
+                tbRegress.Text += "Интервал предсказания: " + Math.Round(A[0,0] - del, 3) + " <= y~ <= " +
+                Math.Round(A[0,0] + del, 3); 
+                #endregion
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Ошибка"); }
         }
@@ -661,8 +671,7 @@ namespace CourseWork2
         }
         #endregion
 
-        #region
-        #endregion
+       
 
     }
 }
