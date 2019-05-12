@@ -186,11 +186,7 @@ namespace CourseWork2
         {
             try
             {
-                columArray = new double[colum][];
                 koeffPair = new DenseMatrix(colum, colum);
-                for (int i = 0; i < colum; i++)
-                    columArray[i] = DiscriptiveStatistics.GetSample(File.ReadAllText(@"C:\Users\Данагуль\source\repos\CourseWork2\Нормированные значения\" + (i + 2).ToString() + ".txt"));
-
                 for (int i = 0; i < colum; i++)
                     for (int j = i; j < colum; j++)
                         koeffPair[i, j] = koeffPair[j, i] = DiscriptiveStatistics.PairKoeff(columArray[i], columArray[j]);
@@ -527,7 +523,7 @@ namespace CourseWork2
                 {
                     Qos += Math.Pow(Y[i, 0] - NewY[i, 0], 2);
                 }
-                double t_tabl = 1.96;//2.306;
+                double t_tabl = 2;// 1.96;
                 double S_2 = Qr[0, 0] / (columArray[0].Length - colum - 1);
                 DenseMatrix S_b = inverseM;
 
@@ -538,8 +534,7 @@ namespace CourseWork2
                     else tbRegress.Text += "a" + i.ToString() + " не значим\n";
                 }
                 double F_tabl = 4.459;
-                //double F = (Qr[0, 0] * (569-10 - 1)) / ((10+1) * Qos);
-                double F = (Qr[0, 0] * (10- 1 - 1)) / ((1+1) * Qos);
+                double F = (Qr[0, 0] * (colum- 1 - 1)) / ((1+1) * Qos);
                 tbRegress.Text += "\n Значимость равна " + F.ToString();
                 if(F>F_tabl) tbRegress.Text += "\n Уравнение регрессии значимо "  + "\nY\tY^\n ";
                 else tbRegress.Text += "\n Уравнение регрессии не значимо " + "\nY\tY^\n ";
@@ -558,7 +553,7 @@ namespace CourseWork2
 
                 for(int i = 0; i < colum; i++)
                 {
-                    X0[0, i] = columArraySource[i][0];
+                    X0[0, i] = columArray[i][0];
                 }
                 DenseMatrix delta = (DenseMatrix)X0.Multiply(inverseM);
                 X0 = (DenseMatrix)X0.Transpose();
@@ -571,7 +566,7 @@ namespace CourseWork2
                     A[0,0] += X0[j - 1,0] * A[j, 0];
                 for (int j = 1; j < delta.ColumnCount; j++)
                     delta[0,0] += X0[ j - 1,0] * delta[0, j];
-                double del = t_tabl * S_ * Math.Sqrt(Math.Abs(delta[0,0]) - 1);
+                double del = t_tabl * S_ * Math.Sqrt(Math.Abs(delta[0,0]) + 1);
 
                 tbRegress.Text += "Интервал предсказания: " + Math.Round(A[0,0] - del, 3) + " <= y~ <= " +
                 Math.Round(A[0,0] + del, 3); 
