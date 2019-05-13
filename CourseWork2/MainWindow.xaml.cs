@@ -550,22 +550,27 @@ namespace CourseWork2
                     tbRegress.Text += string.Format("{0}\t{1}\n", Y[i, 0], NewY[i, 0]);
                 }
 
-                double Prognoz = 0;
+                double Prognoz = A[0,0];
                 double S_ = Math.Sqrt(S_2);
                 DenseMatrix X0 = new DenseMatrix(1, 10);
-                for(int i = 0; i < colum; i++)
+                for(int i = 1; i < colum; i++)
                 {
                     Prognoz += columArray[i][0] * A[i, 0];
                 }
-
-                for(int i = 0; i < colum; i++)
+                X0[0, 0] = 1;
+                for(int i = 1; i < colum; i++)
                 {
                     X0[0, i] = columArray[i][0];
                 }
-                DenseMatrix delta = (DenseMatrix)X0.Multiply(inverseM);
+
                 X0 = (DenseMatrix)X0.Transpose();
+                DenseMatrix X_T2 = (DenseMatrix)X0.Transpose();
+                DenseMatrix MulMatr2 = (DenseMatrix)X0.Multiply(X_T2);
+                DenseMatrix inverseM2 = (DenseMatrix)MulMatr2.Inverse();
+
+                DenseMatrix delta = (DenseMatrix)X_T2.Multiply(inverseM2);
               DenseMatrix m = (DenseMatrix) delta.Multiply(X0);
-                //tbRegress.Text += "\n" + Prognoz + "+-" + t_tabl * S_2 * Math.Sqrt(Math.Abs(m[0, 0]) + 1);
+                tbRegress.Text += "\n" + Prognoz + "+-" + t_tabl * S_2 * Math.Sqrt(Math.Abs(m[0, 0]) + 1) + "\n";
                 #endregion
 
                 #region Прогноз
