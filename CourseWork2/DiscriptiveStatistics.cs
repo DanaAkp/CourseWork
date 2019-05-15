@@ -822,9 +822,8 @@ namespace CourseWork2
             double s_y = Math.Sqrt(Dispersion(y));
             double xy_aver = 0;
             for (int i = 0; i < x.Length; i++) xy_aver += x[i] * y[i];
-            xy_aver /= x.Length;
-
-
+            xy_aver /= (x.Length );
+            
             return (xy_aver - Average(x) * Average(y)) / (s_x * s_y);
         }
         /// <summary>

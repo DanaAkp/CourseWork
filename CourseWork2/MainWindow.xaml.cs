@@ -33,6 +33,13 @@ namespace CourseWork2
         string s = "";
         double[] sampleSource;
         double[] sampleRationing;
+        double t_tabl = 1.9640;//me
+        double F_tabl = 1.755;
+        //double t_tabl = 2.446;//M
+        //double F_tabl = 4.09;
+
+        //double t_tabl = 2.02;//Zh
+        //double F_tabl = 2.0772;
         public MainWindow()
         {
             InitializeComponent();
@@ -492,7 +499,6 @@ namespace CourseWork2
                 DenseMatrix X_1 = new DenseMatrix(colum, columArray[0].Length);
                 DenseMatrix Y = new DenseMatrix(columArray[0].Length, 1);
                 Y[0, 0] = 1;
-
                 for (int i = 1; i < colum; i++)
                 {
                     double[] buf = columArray[i];
@@ -504,6 +510,7 @@ namespace CourseWork2
                     }
                 }
 
+                #region Коэффициенты
                 DenseMatrix X_T = (DenseMatrix)X_1.Transpose();
                 DenseMatrix MulMatr = (DenseMatrix)X_1.Multiply(X_T);
                 DenseMatrix inverseM = (DenseMatrix)MulMatr.Inverse();
@@ -519,6 +526,8 @@ namespace CourseWork2
                 for (int i = 0; i < strok.Length - 1; i++)
                     tbRegress.Text += strok[i];
                 tbRegress.Text += "\n";
+                #endregion
+
                 #region Значимость
                 DenseMatrix NewY = (DenseMatrix)X_T.Multiply(A);
                 DenseMatrix Qr = (DenseMatrix)NewY.TransposeThisAndMultiply(NewY);
@@ -527,21 +536,23 @@ namespace CourseWork2
                 {
                     Qos += Math.Pow(Y[i, 0] - NewY[i, 0], 2);
                 }
-                double t_tabl = 1.96;
-                double S_2 = Qr[0, 0] / (columArray[0].Length - colum - 1);
+                double S_2 = Qos / (columArray[0].Length - colum - 1);
+                double S_ = Math.Sqrt(S_2);
                 DenseMatrix S_b = inverseM;
 
                 for (int i = 0; i < S_b.RowCount; i++)
                 {
-                    S_b[i, i] *= S_2;
-                    if (S_b[i, i] > t_tabl) tbRegress.Text += "a" + i.ToString() + " значим\n";
+                    S_b[i, i] *= S_;
+                    if (Math.Abs(A[i,0]) / S_b[i, i] > t_tabl) tbRegress.Text += "a" + i.ToString() + " значим\n";
                     else tbRegress.Text += "a" + i.ToString() + " не значим\n";
                 }
-
-
-
-                double F_tabl = 4.459;
-                double F = (Qr[0, 0] * (colum- 1 - 1)) / ((1+1) * Qos);
+                tbRegress.Text += "Интервальная оценка\n";
+                for (int i = 0; i < colum; i++)
+                {
+                    tbRegress.Text += string.Format("{0:F2} <=B{2}<= {1:F2}\n", A[i, 0]-t_tabl * S_b[i, i], A[i, 0] + t_tabl * S_b[i, i],i);
+                }
+                
+                double F = (Qr[0, 0] * (columArray[0].Length- colum - 1)) / ((colum+1) * Qos);
                 tbRegress.Text += "\n Значимость равна " + F.ToString();
                 if(F>F_tabl) tbRegress.Text += "\n Уравнение регрессии значимо "  + "\nY\tY^\n ";
                 else tbRegress.Text += "\n Уравнение регрессии не значимо " + "\nY\tY^\n ";
@@ -551,8 +562,7 @@ namespace CourseWork2
                 }
 
                 double Prognoz = A[0,0];
-                double S_ = Math.Sqrt(S_2);
-                DenseMatrix X0 = new DenseMatrix(1, 10);
+                DenseMatrix X0 = new DenseMatrix(1, colum);
                 for(int i = 1; i < colum; i++)
                 {
                     Prognoz += columArray[i][0] * A[i, 0];
@@ -560,33 +570,19 @@ namespace CourseWork2
                 X0[0, 0] = 1;
                 for(int i = 1; i < colum; i++)
                 {
-                    X0[0, i] = columArray[i][0];
+                    X0[0, i] = columArray[i][5];
                 }
 
                 X0 = (DenseMatrix)X0.Transpose();
                 DenseMatrix X_T2 = (DenseMatrix)X0.Transpose();
-                DenseMatrix MulMatr2 = (DenseMatrix)X0.Multiply(X_T2);
-                DenseMatrix inverseM2 = (DenseMatrix)MulMatr2.Inverse();
-
-                DenseMatrix delta = (DenseMatrix)X_T2.Multiply(inverseM2);
-              DenseMatrix m = (DenseMatrix) delta.Multiply(X0);
-                tbRegress.Text += "\n" + Prognoz + "+-" + t_tabl * S_2 * Math.Sqrt(Math.Abs(m[0, 0]) + 1) + "\n";
-                #endregion
-
-                #region Прогноз
-                for (int j = 1; j < A.RowCount; j++)
-                    A[0,0] += X0[j - 1,0] * A[j, 0];
-                for (int j = 1; j < delta.ColumnCount; j++)
-                    delta[0,0] += X0[ j - 1,0] * delta[0, j];
-                double del = t_tabl * S_ * Math.Sqrt(Math.Abs(delta[0,0]) + 1);
-
-                tbRegress.Text += "Интервал предсказания: " + Math.Round(A[0,0] - del, 3) + " <= y~ <= " +
-                Math.Round(A[0,0] + del, 3); 
+                DenseMatrix delta = (DenseMatrix)X_T2.Multiply(inverseM);
+                DenseMatrix m = (DenseMatrix) delta.Multiply(X0);
+                
+                tbRegress.Text += string.Format("\n{0:F2}<=Y^<={1:F2}\n", Prognoz - t_tabl * S_ * Math.Sqrt(Math.Abs(m[0, 0])-1 ), Prognoz + t_tabl * S_ * Math.Sqrt(Math.Abs(m[0, 0]-1) ));
                 #endregion
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Ошибка"); }
         }
-
         #endregion
 
         #region Данные
@@ -596,7 +592,7 @@ namespace CourseWork2
             columArraySource = Data.Array;
             columArray = new double[Data.parametrs.Count][];
             colum = Data.parametrs.Count;
-            for (int i = 0; i < Data.parametrs.Count; i++)
+            for (int i = 0; i < colum; i++)
             {
                 columArray[i] = DiscriptiveStatistics.Rationing_MaxMin(columArraySource[i]);
             }
@@ -614,6 +610,7 @@ namespace CourseWork2
                 stp.Children.Add(lv);
             }
             scv.Content = stp;
+            //columArray = columArraySource;
         }
         #endregion
 

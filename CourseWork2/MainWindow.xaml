@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CourseWork2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1150" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="600" Width="1150" ResizeMode="CanResize" WindowStartupLocation="CenterScreen">
     <TabControl>
         <TabItem Header="Данные">
             <Grid >
@@ -39,7 +39,7 @@
                     </StackPanel>
                     <Button x:Name="btnDiscrStat" Click="BtnDiscrStat_Click" Grid.Column="1" Content="Вычислить" Margin="170,20"/>
                 </StackPanel>
-                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="1">
+                <ScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="1">
                     <StackPanel x:Name="stpDiscrStat" Orientation="Horizontal"/>
                 </ScrollViewer>
                 <TextBlock x:Name="tblDiscrStat" Grid.Row="1" Width="150"/>
