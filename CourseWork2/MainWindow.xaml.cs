@@ -518,8 +518,6 @@ namespace CourseWork2
                 DenseMatrix X_T = (DenseMatrix)X_1.Transpose();
                 DenseMatrix MulMatr = (DenseMatrix)X_1.Multiply(X_T);
                 DenseMatrix inverseM = (DenseMatrix)MulMatr.Inverse();
-                vivod(X_1);
-                vivod(X_T);
                 DenseMatrix mul = (DenseMatrix)inverseM.Multiply(X_1);
                 DenseMatrix A = (DenseMatrix)mul.Multiply(Y);
                 string b = string.Format("a0 = {0:F2}\n", A[0, 0]), ib = "", kz = "", z = "", y1 = "", y2 = "", y3 = "", iy = "";
@@ -607,19 +605,7 @@ namespace CourseWork2
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Ошибка"); }
         }
-        private void vivod(DenseMatrix arr)
-        {
-            string s = "";
-            for(int i = 0; i < arr.RowCount; i++)
-            {
-                for(int j = 0; j < arr.ColumnCount; j++)
-                {
-                    s +=string.Format("{0:F2}", arr[i, j] )+ "\t";
-                }
-                s += "\n";
-            }
-            MessageBox.Show(s);
-        }
+        
         #endregion
 
         #region Данные
