@@ -142,14 +142,14 @@
                 </Grid.ColumnDefinitions>
                 <Button Margin="150,30" x:Name="btn" Grid.Row="0" Grid.Column="2" Click="Btn_Click" Content="Вычислить" />
                 <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Нормальным распределение считается при значении не превосходящeм 43.2"/>
-               
- <ScrollViewer Grid.ColumnSpan="3" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" Grid.Row="1" Grid.RowSpan="2" x:Name="scvDistribution">
+
+                <ScrollViewer Grid.ColumnSpan="3" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" Grid.Row="1" Grid.RowSpan="2" x:Name="scvDistribution">
                     <StackPanel Orientation="Horizontal">
                         <StackPanel>
                             <TextBlock Text="     "/>
                         </StackPanel>
                         <StackPanel x:Name="stpDistrParams">
-                            <TextBlock  Text="Параметры"/>
+                            <!--<TextBlock  Text="Параметры"/>-->
                         </StackPanel>
                         <StackPanel>
                             <TextBlock Text="     "/>
@@ -196,22 +196,17 @@
                         <Button x:Name="btn_Pair" Click="Btn_Pair_Click" Content="Вычислить" Grid.Column="0" Margin="265,30"/>
                         <TextBox x:Name="tbMatrix" Grid.Row="1"/>
                         <Canvas x:Name="cnvMain" Grid.Row="1" Grid.Column="1" Margin="50,76,38,76">
-                            <Ellipse Stroke="Black" StrokeThickness="2" Width="300" Height="300"/>
-                            <!--<Label Content="X10" Canvas.Left="0" Canvas.Top="65" Height="26" Width="30"/>-->
-                            <Label Content="X12" Canvas.Left="35" Canvas.Top="11" Height="26" Width="30"/>
-                            <Label Content="X2" Canvas.Left="235" Canvas.Top="11" Height="26" Width="30"/>
-                            <Label Content="X3" Canvas.Left="280" Canvas.Top="65" Height="26" Width="30"/>
-                            <Label Content="X5" Canvas.Left="280" Canvas.Top="225" Height="26" Width="30"/>
-                            <Label Content="X6" Canvas.Left="235" Canvas.Top="270" Height="26" Width="30"/>
-                            <Label Content="X9" Canvas.Left="5" Canvas.Top="225" Height="26" Width="30"/>
-                            <Label Content="X8" Canvas.Left="40" Canvas.Top="270" Height="26" Width="30"/>
                         </Canvas>
+                        <Label Content="X9" Height="26" Width="30" Grid.Column="1" Grid.Row="1" Margin="30,159,343,262"/>
                         <Label Content="X1" Grid.Row="1" Grid.Column="1" Margin="189,48,151,355"/>
-                        <Label Content="X4" Grid.Row="1" Grid.Column="1" Margin="350,212,0,194" RenderTransformOrigin="0.5,0.5"/>
-                        <Label Content="X10" Grid.Row="1" Grid.Column="1" Margin="20,212,330,194"/>
-                        <Label Content="X11" Grid.Column="1" Grid.Row="1" Margin="30,150,324,264"/>
-                        <Label Content="X7" Grid.Row="1" Grid.Column="1" Margin="189,376,151,39" RenderTransformOrigin="0.5,0.5"/>
-                        <!--<lvc:CartesianChart Grid.Column="1" Grid.Row="1" Series = "{Binding SeriesCollection}"  />-->
+                        <Label Content="X10" Grid.Column="1" Grid.Row="1" Margin="70,93,284,313"/>
+                        <Label Content="X7" Grid.Row="1" Grid.Column="1" Margin="70,321,282,94" RenderTransformOrigin="0.5,0.5"/>
+                        <Label Content="X3" Grid.Column="1" Grid.Row="1"  Height="26" Width="30" Margin="344,159,29,262"/>
+                        <Label Content="X2" Grid.Column="1" Grid.Row="1" Width="30" Margin="302,93,71,323"/>
+                        <Label Content="X4"  Grid.Column="1" Grid.Row="1"  Height="26" Width="30" Margin="344,254,29,167"/>
+                        <Label Content="X5"  Grid.Column="1" Grid.Row="1"  Height="26" Margin="311,321,57,100"/>
+                        <Label Content="X6"  Grid.Column="1" Grid.Row="1"  Height="26" Width="30" Margin="189,376,184,45"/>
+                        <Label Content="X8"  Grid.Column="1" Grid.Row="1" Height="26" Width="30" Margin="30,254,343,167"/>
                     </Grid>
                 </TabItem>
                 <TabItem Header="Частные">
@@ -240,27 +235,19 @@
                         </StackPanel>
                         <Button x:Name="btn2" Click="Btn2_Click" Content="Вычислить" Margin="265,30" Grid.Column="0"/>
                         <TextBox x:Name="tbMatrix2" Grid.Row="1"/>
-                        <!--<Canvas x:Name="cnvMainPrivate" Grid.Row="1" Grid.Column="1" Margin="50,76,38,76">
-                            <Ellipse Stroke="Black" StrokeThickness="2" Width="300" Height="300"/>
-                            --><!--<Label Content="X10" Canvas.Left="0" Canvas.Top="65" Height="26" Width="30"/>--><!--
-                            <Label Content="X12" Canvas.Left="35" Canvas.Top="11" Height="26" Width="30"/>
-                            <Label Content="X2" Canvas.Left="235" Canvas.Top="11" Height="26" Width="30"/>
-                            <Label Content="X3" Canvas.Left="280" Canvas.Top="65" Height="26" Width="30"/>
-                            <Label Content="X5" Canvas.Left="280" Canvas.Top="225" Height="26" Width="30"/>
-                            <Label Content="X6" Canvas.Left="235" Canvas.Top="270" Height="26" Width="30"/>
-                            <Label Content="X9" Canvas.Left="5" Canvas.Top="225" Height="26" Width="30"/>
-                            <Label Content="X8" Canvas.Left="40" Canvas.Top="270" Height="26" Width="30"/>
+                        <Canvas x:Name="cnvMainPrivate" Grid.Row="1" Grid.Column="1" Margin="50,76,38,76">
+                            <!--<Ellipse Stroke="Black" StrokeThickness="2" Width="300" Height="300"/>-->
                         </Canvas>
+                        <Label Content="X9" Height="26" Width="30" Grid.Column="1" Grid.Row="1" Margin="30,159,343,262"/>
                         <Label Content="X1" Grid.Row="1" Grid.Column="1" Margin="189,48,151,355"/>
-                        <Label Content="X4" Grid.Row="1" Grid.Column="1" Margin="350,212,0,194" RenderTransformOrigin="0.5,0.5"/>
-                        <Label Content="X10" Grid.Row="1" Grid.Column="1" Margin="20,212,330,194"/>
-                        <Label Content="X11" Grid.Column="1" Grid.Row="1" Margin="30,150,324,264"/>
-                        <Label Content="X7" Grid.Row="1" Grid.Column="1" Margin="189,376,151,39" RenderTransformOrigin="0.5,0.5"/>-->
-                        <!--<Canvas x:Name="cnvTest" Grid.Row="1" Grid.Column="1">
-                            
-                        </Canvas>-->
-
-                        <ListView Grid.Row="1" Grid.Column="1" x:Name="lvCNV" Margin="30,30,30,0"/>
+                        <Label Content="X10" Grid.Column="1" Grid.Row="1" Margin="70,93,284,313"/>
+                        <Label Content="X7" Grid.Row="1" Grid.Column="1" Margin="70,321,282,94" RenderTransformOrigin="0.5,0.5"/>
+                        <Label Content="X4" Grid.Column="1" Grid.Row="1"  Height="26" Width="30" Margin="344,159,29,262"/>
+                        <Label Content="X2" Grid.Column="1" Grid.Row="1" Width="30" Margin="302,93,71,323"/>
+                        <Label Content="X3"  Grid.Column="1" Grid.Row="1"  Height="26" Width="30" Margin="344,254,29,167"/>
+                        <Label Content="X5"  Grid.Column="1" Grid.Row="1"  Height="26" Margin="311,321,57,100"/>
+                        <Label Content="X6"  Grid.Column="1" Grid.Row="1"  Height="26" Width="30" Margin="189,376,184,45"/>
+                        <Label Content="X8"  Grid.Column="1" Grid.Row="1" Height="26" Width="30" Margin="30,254,343,167"/>
                     </Grid>
                 </TabItem>
                 <TabItem Header="Множественныe">
@@ -273,26 +260,137 @@
                             <ColumnDefinition Width="617*"/>
                             <ColumnDefinition Width="369*"/>
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="btn3" Click="Btn3_Click" Content="Вычислить" Margin="265,30"/>
-                        <TextBox x:Name="tbMatrix3" Grid.Row="1"/>
+                        <Button x:Name="btn3" Click="Btn3_Click" Content="Вычислить" Margin="150,30" Grid.Column="1"/>
+                        <ScrollViewer Grid.ColumnSpan="3" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" Grid.Row="1" Grid.RowSpan="2" x:Name="scvKorr">
+                            <StackPanel Orientation="Horizontal">
+                                <!--<StackPanel>
+                                    <TextBlock Text="     "/>
+                                </StackPanel>-->
+                                <StackPanel x:Name="stpKorrParams">
+                                    <!--<TextBlock  Text="Параметры"/>-->
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="     "/>
+                                </StackPanel>
+                                <StackPanel x:Name="stpKorrR">
+                                    <TextBlock HorizontalAlignment="Center"  Text="Множественный коэффициент"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="     "/>
+                                </StackPanel>
+                                <StackPanel x:Name="stpKorrDeterm">
+                                    <TextBlock HorizontalAlignment="Center"  Text="Коэффициент детерминации"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="     "/>
+                                </StackPanel>
+                                <StackPanel x:Name="stpKorrKoeffZN">
+                                    <TextBlock HorizontalAlignment="Center"  Text="Коэффициент значимости"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="     "/>
+                                </StackPanel>
+                                <StackPanel x:Name="stpKorrZN">
+                                    <TextBlock HorizontalAlignment="Center"  Text="Значимость"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </ScrollViewer>
+
                     </Grid>
                 </TabItem>
             </TabControl>
         </TabItem>
         <TabItem Header="Регрессионный анализ">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="69*"/>
-                    <RowDefinition Height="350*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="299*"/>
-                    <ColumnDefinition Width="194*"/>
-                </Grid.ColumnDefinitions>
-                <TextBox x:Name="tbRegress" Grid.Row="1"/>
-                <Button x:Name="btnRegress" Click="BtnRegress_Click" Grid.Column="1" Content="btn" Margin="170,30"/>
-            </Grid>
+            <!--<TabControl TabStripPlacement="Left">
+                <TabItem Header="Регрессия">-->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="75"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="270"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="299*"/>
+                            <ColumnDefinition Width="194*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock x:Name="tblRegrURAVN" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Times New Roman" FontWeight="Bold" FontSize="14"/>
+                        <Button x:Name="btnRegress" Click="BtnRegress_Click" Grid.Column="1" Content="Вычислить" Margin="170,25"/>
+                        <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
+                            <TextBlock Height="20"/>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Введите значения параметров: "/>
+                                <TextBox x:Name="tbPrognozKoeff" Width="400"/>
+                                <!--<Button x:Name="btnPrognoz" Click="BtnPrognoz_Click" Content="Вычислить" Margin="230,0" Width="75" />-->
+                            </StackPanel>
+                            <TextBlock Height="20"/>
+                            <TextBlock x:Name="tblPrognoz"/>
+                        </StackPanel>
+                        <ScrollViewer Grid.ColumnSpan="3" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" Grid.Row="1"  x:Name="scvRegrY">
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel x:Name="stpRegrToch">
+                                    <TextBlock HorizontalAlignment="Center"  Text=" Точечные оценки"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="     "/>
+                                </StackPanel>
+                                <StackPanel x:Name="stpRegrInterv">
+                                    <TextBlock HorizontalAlignment="Center"  Text="Интервальные оценки"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="     "/>
+                                </StackPanel>
+                                <StackPanel x:Name="stpRegrKoeffZN">
+                                    <TextBlock HorizontalAlignment="Center"  Text="Коэффициент значимости"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="     "/>
+                                </StackPanel>
+                                <StackPanel x:Name="stpRegrZN">
+                                    <TextBlock HorizontalAlignment="Center"  Text="Значимость"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="     "/>
+                                </StackPanel>
+                                <StackPanel x:Name="stpRegrY">
+                                    <TextBlock HorizontalAlignment="Center"  Text="Y"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="     "/>
+                                </StackPanel>
+                                <StackPanel x:Name="stpRegrY_">
+                                    <TextBlock HorizontalAlignment="Center"  Text="Y^"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="     "/>
+                                </StackPanel>
+                                <StackPanel x:Name="stpRegrY_Y">
+                                    <TextBlock HorizontalAlignment="Center"  Text="Y-Y^"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="     "/>
+                                </StackPanel>
+                                <StackPanel x:Name="stpRegrIntervY_">
+                                    <TextBlock HorizontalAlignment="Center"  Text="Интервальные оценки"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Grid>
+                <!--</TabItem>
+                <TabItem Header="Прогноз">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="69*"/>
+                            <RowDefinition Height="350*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="299*"/>
+                            <ColumnDefinition Width="194*"/>
+                        </Grid.ColumnDefinitions>
+
+                    </Grid>
+                </TabItem>
+            </TabControl>-->
         </TabItem>
-        
+
     </TabControl>
 </Window>

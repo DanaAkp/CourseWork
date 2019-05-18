@@ -28,17 +28,7 @@ namespace CourseWork2
                 s = buf.ToLower();
             }
 
-            //var srcEncoding = Encoding.GetEncoding(1251);
-            //var dstEncoding = Encoding.UTF8;
-            //using (var src = new StreamReader(@"Data\data.csv", encoding: srcEncoding))
-            //{
-            //    string line;
-            //    while ((line = src.ReadLine()) != null)
-            //        s += line + "!";
-            //}
-
-
-            // string[] vs = File.ReadAllLines(@"Data\data.csv");
+            //string[] vs = File.ReadAllLines(@"Data\data.csv", Encoding.Default);
             string[] vs = s.Split(new string[] { "\r\n" },StringSplitOptions.RemoveEmptyEntries);
             string[] str = vs[0].Split(';');
             countData = str.Length;
@@ -48,8 +38,9 @@ namespace CourseWork2
             Array = new double[parametrs.Count][];
             for(int i = 0; i < parametrs.Count; i++)
             {
-                double[] buf = new double[vs.Length - 2];
-                for(int j = 1; j < vs.Length-1; j++)
+                double[] buf = new double[vs.Length - 1];
+                //double[] buf = new double[100];
+                for (int j = 1; j < buf.Length+1; j++)
                 {
                     str = vs[j].Split(';');
                      buf[j - 1] = double.Parse(str[i].Replace('.', ','));
